@@ -2,6 +2,7 @@ import random
 
 board = [' ' for i in range(10)]
 
+#Print the tic-tac-toe game board
 def printBoard(b):
     print("\n")
     print(b[1] + ' | ' + b[2] + ' | ' + b[3])
@@ -10,16 +11,20 @@ def printBoard(b):
     print('- - - - -') 
     print(b[7] + ' | ' + b[8] + ' | ' + b[9])
 
+#Check if the given move is valid
 def isValidChoice(move):
     if board[move] == ' ': return True
     else: return False
 
+#Update the board with the given move by the given player
 def inputMove(p, move):
     board[move] = p
 
+#Check if the board is full
 def isFull(b):
     return False if b.count(' ') > 1 else True
 
+#Check if a player has won the game
 def isWin(b, p):
     return ((b[1] == p and b[2] == p and b[3] == p) or 
     (b[4] == p and b[5] == p and b[6] == p) or
@@ -30,19 +35,21 @@ def isWin(b, p):
     (b[1] == p and b[5] == p and b[9] == p) or 
     (b[3] == p and b[5] == p and b[7] == p))
 
+#Provide the user's choice
 def user_Choice():
     while True:
-        user_Move = input("\n Please select a spot to place your move (1-9): ")
+        user_Move = input("\n Select your move (1-9): ")
         try:
             user_Move = int(user_Move)
             if user_Move > 0 and user_Move < 10:
                 if isValidChoice(user_Move):
                     inputMove('X', user_Move)
                     break;
-                else: print("Sorry, that spot is already taken!")
-            else: print("Sorry, your choice is not in specified range of 1-9.")
+                else: print("That spot is already taken!")
+            else: print("Choice is not in range of 1-9.")
         except: print("Please put in a valid number.")
 
+#Provide the computer's choice
 def computer_Choice():
     moves = []
     for index, value in enumerate(board):
@@ -58,6 +65,7 @@ def computer_Choice():
         computer_move = random.randrange(0, len(moves))
         return moves[computer_move]
 
+#Simulate the tic-tac-toe game
 def main(): 
     print("\n Welcome to Tic-Tac-Toe!")
     printBoard(board)
@@ -82,13 +90,16 @@ def main():
             printBoard(board)
             break;
 
+#Calls the main function
 main()
+
+#Ask the user if they wish to play again
 while True:
-    user_selection = input("\n Do you wish to play again? (y/n): ")
+    user_selection = input("\n Play again? (y/n): ")
     if user_selection.lower() == 'y':
         board = [' ' for i in range(10)]
         main()
     elif user_selection.lower() == 'n':
-        print("\n Alright, thanks for playing!")
+        print("\n Alright, thanks for playing! \n")
         break;
     else: print("\n Please input either y or n")
